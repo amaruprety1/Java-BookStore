@@ -59,6 +59,8 @@ public class ControllerServlet extends HttpServlet {
 				case "/insert":
 					insertBook(request, response);
           break;
+				case "/delete":
+					deleteBook(request, response);
         default:
 				   listBooks(request, response);
            break;
@@ -102,6 +104,12 @@ public class ControllerServlet extends HttpServlet {
 		Book newBook = new Book(title, author, Float.parseFloat(priceString));
 
 		bookDAO.insertBook(newBook);
+		response.sendRedirect("list");
+	}
+	private void deleteBook(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException { 
+		String ids = request.getParameter("id");
+		int id = Integer.parseInt(ids);
+		bookDAO.deleteBook(id);
 		response.sendRedirect("list");
 	}
 
